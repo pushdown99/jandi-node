@@ -1,30 +1,16 @@
-// Compile-time configuration for executable binary build.
 const _isWin     = process.platform === "win32";
 const _workspace = process.cwd ();
-
-//const _isWin     = true;
-//const _workspace = 'C:\\jandi-dump';
 
 const fs   = require ('fs');
 const path = require ('path');
 const pdf  = require ('pdfkit');
 
-//let _modules   = _isWin ? _workspace+'\\node_modules': _workspaces+'/node_modules';
-//let _webdriver = _isWin ? _modules+'\\selenium-webdriver': _modules+'/selenium-webdriver';
-//let _chrome    = _isWin ? _webdriver+'\\chrome': _webdriver+'/chrome';
 const _modules   = path.resolve(path.join(_workspace, 'node_modules'));
 const _webdriver = path.resolve(path.join(_modules, 'selenium-webdriver'));
 const _chrome    = path.resolve(path.join(_webdriver, 'chrome'));
 
-
-//require(_isWin ? _modules + '\\dotenv': _modules + '/dotenv').config();
 require('dotenv').config();
 
-//const fs   = require (_isWin ? _modules + '\\fs': _modules + '/fs');
-//const path = require (_isWin ? _modules + '\\path': _modules + '/path');
-//const pdf  = require (_isWin ? _modules + '\\pdfkit': _modules + '/pdfkit');
-
-//const workspace = process.env.JANDI_WORKSPACE || '';
 const username      = process.env.JANDI_USERNAME || '';
 const password      = process.env.JANDI_PASSWORD || '';
 const ignore_topics = process.env.JANDI_IGNORE_TOPICS.split(',') || '';
@@ -37,15 +23,8 @@ const SLEEP_MINOR = 100;
 const SLEEP_MAJOR = 1000;
 let _messages = {}; 
 
-
-// RUN TIME
-//const webdriver = path.join(workspace, 'node_modules', 'selenium-webdriver');
 const chrome    = require(_chrome);
 const {Builder, By, Key, until} = require(_webdriver);
-
-// COMPILE TIME
-//const {Builder, By, Key, until} = require('C:\\jandi-dump\\node_modules\\selenium-webdriver');
-//const chrome    = require('C:\\jandi-dump\\\\node_modules\\selenium-webdriver\\chrome');
 
 const download = path.join (_workspace, 'download');
 const output   = path.join (_workspace, 'output');
@@ -97,7 +76,7 @@ function dict2text (f, d) {
 }
 
 function dict2pdf (f, d) {
-    const doc = new pdf({ size: "A4", font: "Pretendard-Regular.ttf" });
+    const doc = new pdf({ size: "A4", font: "NanumBarunGothic.ttf" });
     doc.fontSize(10);
 
     doc.pipe(fs.createWriteStream(f));
@@ -174,7 +153,6 @@ async function topicRoomEntrance (topicId, topicNm) {
     }
     _messages = sortOnKeys(_messages);
     
-    //fs.writeFileSync(path.join(output, topicNm + '.json'), JSON.stringify (Object.values(_messages), null, 2));
     dict2json (path.join(output, topicNm + '.json'), _messages);
     dict2text (path.join(output, topicNm + '.txt' ), _messages);
     dict2pdf  (path.join(output, topicNm + '.pdf' ), _messages);
