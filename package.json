@@ -1,0 +1,26 @@
+{
+  "name": "jandi-dump",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "del-cli --force output download build",
+    "build": "nexe app.js"
+  },
+  "bin": {
+    "bin": "app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "commonJS",
+  "description": "",
+  "devDependencies": {
+    "del-cli": "^6.0.0",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
+    "pdfkit": "^0.15.1",
+    "selenium-webdriver": "^4.26.0"
+  }
+}
